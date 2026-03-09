@@ -1,0 +1,14 @@
+<div class="cat-bar">
+  <div class="cat-bar__inner">
+    <button
+      *ngFor="let cat of categories"
+      class="cat-pill"
+      [class.cat-pill--active]="activeCategory === cat.id"
+      [style.--color]="cat.color"
+      (click)="select(cat.id)"
+    >
+      <span class="cat-pill__emoji">{{ cat.emoji }}</span>
+      <span class="cat-pill__name">{{ cat.name }}</span>
+    </button>
+  </div>
+</div>

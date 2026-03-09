@@ -1,0 +1,84 @@
+<div class="card" [class.card--oos]="!product.inStock">
+
+  <!-- Image Section -->
+  <div class="card__image">
+
+    <!-- Badges -->
+    <div class="card__badges">
+      <span class="badge badge--discount" *ngIf="product.discount > 0">{{ product.discount }}% OFF</span>
+      <span class="badge badge--organic"  *ngIf="product.isOrganic">🌿 Organic</span>
+      <span class="badge badge--new"      *ngIf="product.isNew">New</span>
+      <span class="badge badge--best"     *ngIf="product.isBestSeller && !product.isNew">⭐ Best Seller</span>
+    </div>
+
+    <!-- Wishlist -->
+    <button
+      class="card__wishlist"
+      [class.card__wishlist--active]="isWishlisted"
+      (click)="toggleWishlist(); $event.stopPropagation()"
+    >
+      {{ isWishlisted ? '❤️' : '🤍' }}
+    </button>
+
+    <!-- Emoji -->
+    <div class="card__emoji">{{ product.emoji }}</div>
+
+    <!-- OOS Overlay -->
+    <div class="card__oos" *ngIf="!product.inStock">
+      <span>Out of Stock</span>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="card__body">
+    <div class="card__brand">{{ product.brand }}</div>
+    <h3 class="card__name">{{ product.name }}</h3>
+    <div class="card__unit">{{ product.unit }}</div>
+
+    <!-- Rating -->
+    <div class="card__rating">
+      <div class="stars">
+        <span
+          *ngFor="let s of stars"
+          class="star"
+          [class.star--filled]="isStarFilled(s)"
+        >★</span>
+      </div>
+      <span class="rating__value">{{ product.rating }}</span>
+      <span class="rating__count">({{ product.reviewCount | number }})</span>
+    </div>
+
+    <!-- Price -->
+    <div class="card__price-row">
+      <div class="price-group">
+        <span class="price__current">₹{{ product.price }}</span>
+        <span class="price__mrp" *ngIf="product.mrp > product.price">₹{{ product.mrp }}</span>
+      </div>
+      <span class="price__save" *ngIf="savings > 0">Save ₹{{ savings }}</span>
+    </div>
+
+    <!-- Cart Controls -->
+    <div class="card__cart">
+      <ng-container *ngIf="quantity === 0; else qtyTemplate">
+        <button
+          class="btn-add"
+          [class.btn-add--added]="justAdded"
+          [disabled]="!product.inStock"
+          (click)="addToCart()"
+        >
+          <span *ngIf="!justAdded">+ Add</span>
+          <span *ngIf="justAdded">✓ Added!</span>
+        </button>
+      </ng-container>
+
+      <ng-template #qtyTemplate>
+        <div class="qty">
+          <button class="qty__btn" (click)="decrement()">−</button>
+          <span class="qty__val">{{ quantity }}</span>
+          <button class="qty__btn" (click)="increment()">+</button>
+        </div>
+      </ng-template>
+    </div>
+
+  </div>
+</div>

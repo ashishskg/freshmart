@@ -1,0 +1,92 @@
+<!-- Backdrop -->
+<div class="backdrop" [class.backdrop--visible]="isOpen" (click)="close()"></div>
+
+<!-- Panel -->
+<aside class="cart" [class.cart--open]="isOpen">
+
+  <!-- Header -->
+  <div class="cart__header">
+    <div class="cart__title">
+      <span class="cart__icon">🛒</span>
+      <h3>My Cart</h3>
+      <span class="cart__count" *ngIf="cartItems.length > 0">
+        {{ cartItems.length }} {{ cartItems.length === 1 ? 'item' : 'items' }}
+      </span>
+    </div>
+    <button class="cart__close" (click)="close()">✕</button>
+  </div>
+
+  <!-- Delivery progress -->
+  <div class="delivery-bar" *ngIf="cartItems.length > 0 && freeDeliveryLeft > 0">
+    <p class="delivery-bar__msg">
+      🚚 Add <strong>₹{{ freeDeliveryLeft }}</strong> more for FREE delivery!
+    </p>
+    <div class="delivery-bar__track">
+      <div class="delivery-bar__fill" [style.width.%]="deliveryProgress"></div>
+    </div>
+  </div>
+  <div class="delivery-free" *ngIf="cartItems.length > 0 && freeDeliveryLeft === 0">
+    🎉 You've unlocked FREE delivery!
+  </div>
+
+  <!-- Items -->
+  <div class="cart__items">
+    <div class="cart-item" *ngFor="let item of cartItems">
+      <div class="cart-item__emoji">{{ item.product.emoji }}</div>
+
+      <div class="cart-item__info">
+        <div class="cart-item__name">{{ item.product.name }}</div>
+        <div class="cart-item__unit">{{ item.product.unit }}</div>
+        <div class="cart-item__price-row">
+          <span class="cart-item__total">₹{{ item.product.price * item.quantity }}</span>
+          <span class="cart-item__each">₹{{ item.product.price }} each</span>
+        </div>
+      </div>
+
+      <div class="cart-item__controls">
+        <div class="qty">
+          <button class="qty__btn" (click)="decrement(item.product.id)">−</button>
+          <span class="qty__val">{{ item.quantity }}</span>
+          <button class="qty__btn" (click)="increment(item.product.id)">+</button>
+        </div>
+        <button class="cart-item__remove" (click)="remove(item.product.id)">🗑</button>
+      </div>
+    </div>
+
+    <!-- Empty -->
+    <div class="cart__empty" *ngIf="cartItems.length === 0">
+      <span class="cart__empty-icon">🛒</span>
+      <h4>Your cart is empty</h4>
+      <p>Add fresh products to get started!</p>
+    </div>
+  </div>
+
+  <!-- Bill section -->
+  <div class="bill" *ngIf="cartItems.length > 0">
+    <h4 class="bill__title">Bill Details</h4>
+
+    <div class="bill__row">
+      <span>Subtotal ({{ cartItems.length }} items)</span>
+      <span>₹{{ subtotal }}</span>
+    </div>
+    <div class="bill__row bill__row--savings">
+      <span>🎁 Total Savings</span>
+      <span>−₹{{ savings }}</span>
+    </div>
+    <div class="bill__row">
+      <span>Delivery Fee</span>
+      <span [class.bill__free]="deliveryFee === 0">
+        {{ deliveryFee === 0 ? 'FREE' : '₹' + deliveryFee }}
+      </span>
+    </div>
+
+    <div class="bill__total">
+      <span>Total Amount</span>
+      <span>₹{{ grandTotal }}</span>
+    </div>
+
+    <button class="btn-checkout">Proceed to Checkout →</button>
+    <button class="btn-clear" (click)="clear()">Clear Cart</button>
+  </div>
+
+</aside>

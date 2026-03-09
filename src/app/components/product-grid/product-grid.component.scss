@@ -1,0 +1,135 @@
+.grid-wrapper {
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ── Toolbar ─────────────────────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  &__left  { display: flex; align-items: baseline; gap: 10px; }
+  &__right { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+  &__title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #212121;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+  }
+
+  &__count {
+    font-size: 13px;
+    color: #9E9E9E;
+    background: #F5F5F5;
+    padding: 2px 10px;
+    border-radius: 20px;
+  }
+}
+
+/* ── Filters ─────────────────────────────────────────────────── */
+.filters { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.filter-pill {
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1.5px solid #E0E0E0;
+  background: #FAFAFA;
+  font-size: 12px;
+  font-weight: 500;
+  color: #555;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+  white-space: nowrap;
+
+  &:hover { border-color: #2E7D32; color: #2E7D32; background: #F1F8E9; }
+
+  &--active {
+    background: #2E7D32;
+    border-color: #2E7D32;
+    color: #fff;
+    font-weight: 600;
+  }
+}
+
+/* ── Sort ────────────────────────────────────────────────────── */
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &__label { font-size: 12px; color: #9E9E9E; white-space: nowrap; }
+
+  &__select {
+    padding: 7px 12px;
+    border: 1.5px solid #E0E0E0;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #333;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    &:focus { border-color: #2E7D32; }
+  }
+}
+
+/* ── Product Grid ────────────────────────────────────────────── */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.grid-item {
+  animation: fadeInUp 0.4s ease-out both;
+}
+
+/* ── Skeleton ────────────────────────────────────────────────── */
+@keyframes shimmer {
+  from { background-position: -400px 0; }
+  to   { background-position:  400px 0; }
+}
+
+$shimmer: linear-gradient(90deg, #F5F5F5 25%, #EEEEEE 50%, #F5F5F5 75%);
+
+.skeleton-card {
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #F0F0F0;
+  overflow: hidden;
+}
+
+.skeleton {
+  background: $shimmer;
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 4px;
+
+  &--image  { height: 160px; }
+  &--line   { height: 12px; width: 100%; margin-bottom: 8px; }
+  &--sm     { width: 60%; }
+  &--price  { height: 20px; width: 50%; }
+  &--btn    { height: 40px; border-radius: 10px; margin-top: 4px; }
+}
+
+.skeleton-body { padding: 14px; }
+
+/* ── Empty State ─────────────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #9E9E9E;
+
+  &__icon  { font-size: 64px; margin-bottom: 16px; }
+  &__title { font-size: 18px; font-weight: 600; color: #616161; margin: 0 0 8px; }
+  &__sub   { font-size: 14px; }
+}

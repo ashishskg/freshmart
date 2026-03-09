@@ -1,0 +1,31 @@
+<div class="hero">
+  <div class="hero__inner">
+
+    <!-- Main Banner -->
+    <div class="hero__main">
+      <div class="hero__content">
+        <span class="hero__tag">⚡ 30-min express delivery</span>
+        <h1 class="hero__title">Fresh Fruits &<br>Vegetables</h1>
+        <p class="hero__sub">Farm to doorstep, every single day</p>
+        <button class="hero__cta">Shop Now →</button>
+      </div>
+      <div class="hero__emoji">🥗</div>
+    </div>
+
+    <!-- Small Banners -->
+    <div class="hero__grid">
+      <div
+        *ngFor="let b of smallBanners"
+        class="hero__small-card"
+        [style.background]="b.bg"
+      >
+        <div class="small-card__text">
+          <strong>{{ b.title }}</strong>
+          <span>{{ b.subtitle }}</span>
+        </div>
+        <span class="small-card__emoji">{{ b.emoji }}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

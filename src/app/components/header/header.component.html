@@ -1,0 +1,75 @@
+<header class="header">
+  <div class="header__inner">
+
+    <!-- Logo -->
+    <div class="header__logo">
+      <span class="logo__icon">🌿</span>
+      <div class="logo__text">
+        <span class="logo__name">FreshMart</span>
+        <span class="logo__tagline">Fresh. Fast. Yours.</span>
+      </div>
+    </div>
+
+    <!-- Delivery Location -->
+    <div class="header__location">
+      <span class="location__pin">📍</span>
+      <div class="location__text">
+        <span class="location__label">Deliver to</span>
+        <span class="location__value">{{ location }} ▾</span>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="header__search">
+      <div class="search__box" [class.search__box--focused]="isFocused">
+        <span class="search__icon">🔍</span>
+        <input
+          type="text"
+          class="search__input"
+          placeholder="Search for fruits, veggies, milk, snacks..."
+          [(ngModel)]="searchText"
+          (input)="onSearchInput()"
+          (keyup.enter)="onSearchEnter()"
+          (focus)="isFocused = true"
+          (blur)="isFocused = false"
+        />
+        <button *ngIf="searchText" class="search__clear" (click)="clearSearch()">✕</button>
+        <button class="search__btn" (click)="onSearchEnter()">Search</button>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="header__actions">
+      <button class="action-btn">
+        <span class="action-btn__icon">👤</span>
+        <div class="action-btn__text">
+          <span class="action-btn__label">Account</span>
+          <span class="action-btn__value">Sign In</span>
+        </div>
+      </button>
+
+      <button class="action-btn action-btn--cart" (click)="onCartClick()">
+        <span class="action-btn__icon">🛒</span>
+        <div class="action-btn__text">
+          <span class="action-btn__label">My Cart</span>
+          <span class="action-btn__value action-btn__value--green">₹{{ cartTotal | number:'1.0-0' }}</span>
+        </div>
+        <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Sub Header -->
+  <div class="header__sub">
+    <div class="sub__inner">
+      <span>⚡ Express Delivery in 30 mins</span>
+      <span class="sub__divider">|</span>
+      <span>🎁 Free delivery above ₹499</span>
+      <span class="sub__divider">|</span>
+      <span>🔄 100% Fresh Guarantee</span>
+      <span class="sub__divider">|</span>
+      <span>💳 First order 10% off: <strong>FRESH10</strong></span>
+    </div>
+  </div>
+</header>

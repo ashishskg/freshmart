@@ -1,0 +1,65 @@
+<div class="grid-wrapper">
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="toolbar__left">
+      <h2 class="toolbar__title">{{ title }}</h2>
+      <span class="toolbar__count" *ngIf="!isLoading">{{ filteredProducts.length }} products</span>
+    </div>
+
+    <div class="toolbar__right">
+      <!-- Filter pills -->
+      <div class="filters">
+        <button
+          *ngFor="let f of filters"
+          class="filter-pill"
+          [class.filter-pill--active]="activeFilter === f.id"
+          (click)="onFilterChange(f.id)"
+        >
+          {{ f.label }}
+        </button>
+      </div>
+
+      <!-- Sort -->
+      <div class="sort">
+        <label class="sort__label">Sort by:</label>
+        <select class="sort__select" [(ngModel)]="sortBy" (change)="onSortChange()">
+          <option *ngFor="let opt of sortOptions" [value]="opt.value">{{ opt.label }}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skeleton loading -->
+  <div class="product-grid" *ngIf="isLoading">
+    <div class="skeleton-card" *ngFor="let s of skeletonItems()">
+      <div class="skeleton skeleton--image"></div>
+      <div class="skeleton-body">
+        <div class="skeleton skeleton--line skeleton--sm"></div>
+        <div class="skeleton skeleton--line"></div>
+        <div class="skeleton skeleton--line skeleton--sm"></div>
+        <div class="skeleton skeleton--line skeleton--price"></div>
+        <div class="skeleton skeleton--btn"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product grid -->
+  <div class="product-grid" *ngIf="!isLoading && filteredProducts.length > 0">
+    <div
+      *ngFor="let p of filteredProducts; trackBy: trackById; let i = index"
+      class="grid-item"
+      [style.animation-delay]="(i * 40) + 'ms'"
+    >
+      <app-product-card [product]="p"></app-product-card>
+    </div>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" *ngIf="!isLoading && filteredProducts.length === 0">
+    <div class="empty-state__icon">🔍</div>
+    <h3 class="empty-state__title">No products found</h3>
+    <p class="empty-state__sub">Try adjusting your search or changing filters</p>
+  </div>
+
+</div>

@@ -1,0 +1,53 @@
+<div class="app">
+
+  <!-- Sticky Header -->
+  <app-header
+    (searchQuery)="onSearchQuery($event)"
+    (cartToggle)="onCartToggle()"
+  ></app-header>
+
+  <!-- Sticky Category Bar -->
+  <app-category-bar
+    [activeCategory]="activeCategory"
+    (categorySelected)="onCategorySelected($event)"
+  ></app-category-bar>
+
+  <!-- Main Content -->
+  <main class="app__main">
+    <app-hero-banner *ngIf="showBanner"></app-hero-banner>
+
+    <app-product-grid
+      [category]="activeCategory"
+      [searchQuery]="searchQuery"
+    ></app-product-grid>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app__footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span>🌿</span>
+        <div>
+          <strong>FreshMart</strong>
+          <span> — Your trusted online grocery store</span>
+        </div>
+      </div>
+      <div class="footer__links">
+        <span>© 2024 FreshMart</span>
+        <span>·</span>
+        <a href="#">Privacy</a>
+        <span>·</span>
+        <a href="#">Terms</a>
+        <span>·</span>
+        <a href="#">Help Center</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Sliding Cart -->
+  <app-cart-sidebar
+    [isOpen]="cartOpen"
+    (closed)="onCartClose()"
+  ></app-cart-sidebar>
+
+</div>
