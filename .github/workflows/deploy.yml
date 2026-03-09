@@ -1,0 +1,40 @@
+name: Deploy Angular App
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular project
+        run: npm run build -- --configuration production --base-href "/freshmart/"
+
+      - name: Configure Git
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "github-actions"
+
+      - name: Deploy to GitHub Pages
+        run: |
+          npm install -g angular-cli-ghpages
+          ngh --dir=dist/freshmart
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
