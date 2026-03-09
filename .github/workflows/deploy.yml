@@ -32,4 +32,4 @@ jobs:
           npm install -g angular-cli-ghpages
           ngh --dir=dist/freshmart
         env:
-          GITHUB_TOKEN: ${{ MY_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_TOKEN }}
